@@ -1,0 +1,36 @@
+{
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"All Autocomplete",
+		"AutoFileName",
+		"Emmet",
+		"Flask Completions",
+		"Git",
+		"Github Tools",
+		"GoSublime",
+		"HTML-CSS-JS Prettify",
+		"Javascript Beautify",
+		"JavaScriptNext - ES6 Syntax",
+		"Jedi - Python autocompletion",
+		"Jinja2",
+		"JsFormat",
+		"JSHint",
+		"JSHint Gutter",
+		"LiveReload",
+		"Package Control",
+		"SideBarEnhancements",
+		"SublimeLinter",
+		"SublimeLinter-contrib-golint",
+		"SublimeLinter-flake8",
+		"SublimeLinter-jshint",
+		"SublimeLinter-pep8",
+		"SublimeOnSaveBuild",
+		"Theme - Afterglow",
+		"Theme - Cobalt2",
+		"Theme - Cyanide",
+		"Theme - Spacegray"
+	]
+}

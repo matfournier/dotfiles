@@ -1,0 +1,16 @@
+{
+	"theme": "Afterglow-blue.sublime-theme",
+  "color_scheme": "Packages/Theme - Afterglow/Afterglow.tmTheme",
+  "font_size": 13,
+	"ignored_packages":
+	[
+		"Vintage",
+		"sublime-github"
+	],
+	"tabs_small": true,
+	"save_on_focus_lost": true,
+	"spacegray_tabs_font_normal": true,
+	"tab_size": 2,
+	"translate_tabs_to_spaces": true,
+	"word_wrap": true
+}
