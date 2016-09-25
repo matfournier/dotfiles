@@ -1,7 +1,8 @@
-" Use Vim settings, rather then Vi settings (much better!).
+
+" tUse Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
-
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 " ================ General Config ====================
 "
 
@@ -20,6 +21,9 @@ set ttimeoutlen=50              " for airline
 set ruler                         " Show cursor position.
 set cursorline                    " Highlight current line
 
+" set a visual columnn at the 80ths character
+set colorcolumn=99
+
 
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
@@ -34,11 +38,9 @@ set hidden
 let mapleader=","
  
 " ================ Turn Off Swap Files ==============
- 
 set noswapfile
 set nobackup
 set nowb
- 
 " ================ Persistent Undo ==================
 " Keep undo history across sessions, by storing in file.
 " Only works all the time.
@@ -50,7 +52,7 @@ set nowb
 " ================ Indentation ======================
  
 set autoindent
-set smartindent
+filetype plugin indent on
 set smarttab
 set shiftwidth=2
 set softtabstop=2
@@ -100,104 +102,86 @@ set sidescroll=1
 " Filetype off is required by vundle
 filetype off
  
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" let Vundle manage Vundle (required)
-Bundle "gmarik/vundle"
-
 """"""""""""""""""""""""""""""""" MY VUNDLES """""""""""""""""""""""
+call plug#begin('~/.vim/plugged')
+
+
+
 " HEAVILY/MOSTLY taken from https://github.com/skwp/dotfiles 
  
  
 " Make Git pervasive in vim ( :Gblame + Glog + many more )
-Bundle 'tpope/vim-fugitive'
+"Bundle 'tpope/vim-fugitive'
  
 " file navigator gutter
-Bundle 'scrooloose/nerdtree.git'
- 
+Plug 'ervandew/supertab'
+Plug 'posva/vim-vue'
+
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 " awesome syntax highlighting
 " TODO: Figure out how to enable correctly for Ruby.
-Bundle 'scrooloose/syntastic'
+Plug 'scrooloose/syntastic'
 
 " status bar 
-Plugin 'bling/vim-airline'
+Plug 'bling/vim-airline'
 
 " surround 
-Plugin 'tpope/vim-surround'
-
+Plug 'tpope/vim-surround'
+Plug 'junegunn/vim-easy-align'
 " markdown
 "
-Bundle 'jtratner/vim-flavored-markdown.git'
-Bundle 'nelstrom/vim-markdown-preview'
-
 " requires exuberant ctags
-Bundle 'majutsushi/tagbar'
+Plug  'majutsushi/tagbar'
 
+Plug 'Yggdroot/indentLine'
 "" 
-"" TERN for vim javascript 
-Bundle 'marijnh/tern_for_vim'
-
-"" you complete me 
-"Bundle 'Valloric/YouCompleteMe"
-
-"" simple simple completion
-"Bundle 'ajh17/VimCompletesMe'
-
-"neomcplete.vim and vimshell
-Bundle 'Shougo/neocomplete.vim'
-Bundle 'Shougo/vimshell.vim'
 "" ctrl p
-Plugin 'kien/ctrlp.vim'
-
-"" ctrl p for function tags
-Plugin 'tacahiroy/ctrlp-funky'
+Plug 'ctrlpvim/ctrlp.vim'
 
 "" nerd commenter 
-Bundle 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdcommenter'
 
 "" auto-delimeter close
-Bundle 'Raimondi/delimitMate'
+Plug 'Raimondi/delimitMate'
 
 "" tags for html
-Plugin 'vim-scripts/closetag.vim'
+Plug 'vim-scripts/closetag.vim'
 
 "" beter javascript
-Plugin 'pangloss/vim-javascript'
-Plugin 'jelera/vim-javascript-syntax'
-
-"" jsbeautifier
-Plugin 'maksimr/vim-jsbeautify'
-Plugin 'einars/js-beautify'
+Plug 'pangloss/vim-javascript'
+Plug 'jelera/vim-javascript-syntax'
+Plug 'mxw/vim-jsx'
+"" some of the options may suck so check it out.
+Plug 'elzr/vim-json'
 
 " vim line indenter
-Plugin 'nathanaelkane/vim-indent-guides'
+Plug 'nathanaelkane/vim-indent-guides'
 
 "css tags
 
-Bundle 'skammer/vim-css-color'
+Plug 'skammer/vim-css-color'
 
 " Add CSS3 syntax support to vim's built-in `syntax/css.vim`
-Bundle 'hail2u/vim-css3-syntax'
-
-"""" COLOR SCHMES """""""""""""""""""""""""""""""""""
-"Bundle 'sickill/vim-monokai'
-
-"Bundle 'flazz/vim-colorschemes' " monster pack
-Plugin 'flazz/vim-colorschemes'
+Plug 'hail2u/vim-css3-syntax'
 
 " go 
-Plugin 'fatih/vim-go'
+Plug 'fatih/vim-go'
 
 " python
-Bundle 'klen/python-mode'
-Plugin 'davidhalter/jedi-vim'
 """"""
-Bundle 'gertjanreynaert/cobalt2-vim-theme'
+Plug 'gertjanreynaert/cobalt2-vim-theme'
+Plug 'carlitux/deoplete-ternjs'
+Plug 'zchee/deoplete-jedi'
+
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+Plug 'mhartington/oceanic-next'
+Plug 'sekel/vim-vue-syntastic'
 
 " END OF VUNDLE PLUGINS
-call vundle#end()
 """"""""""""""""""""""""""""""""""""""""""""""""
+call plug#end()
+
 filetype plugin indent on     " required!
 "
 " Brief help
@@ -211,18 +195,33 @@ filetype plugin indent on     " required!
  
 " Color theme (drawing from altercation/vim-colors-solarized Bundle)
 syntax enable
+
+
+if (has("termguicolors"))
+   set termguicolors
+ endif
+"""""""" COLOR SCHEME SETUP
+
 set background=dark
-"colorscheme gruvbox
-"colorscheme sexy-railscasts
-"colorscheme hybrid
+"" colorscheme Lucario
 colorscheme cobalt2-mf
 
+
+"""""""" END COLOR SETUP
+
+set mouse=a
+set clipboard=unnamedplus
 "turn on syntax highlighting
 au FileType * setlocal formatoptions-=cro " turn off autocomment
 
-
-" For MacVim
-set guifont=Menlo:h13
+let g:Powerline_symbols = 'fancy'
+set encoding=utf-8
+set termencoding=utf-8
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#show_tab_nr = 1
+let g:airline_powerline_fonts = 1
+set guifont=Sauce\ Code\ Powerline\ Plus\ Nerd\ File\ Types\ Mono:h11
 
 " NERDTree Mappins
 " Open Nerd Tree with <Leader>n
@@ -314,160 +313,38 @@ nmap <leader>tt :TagbarToggle<CR>
         endif
 " ctrl-p
 
-let g:ctrlp_working_path_mode = 'ra'
-"""" set to working path mode
 
-"" youcompleteme 
-" YouCompleteMe
-"nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-"nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
-"let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-"Do not ask when starting vim
-"let g:ycm_confirm_extra_conf = 0
 let g:syntastic_always_populate_loc_list = 1
-"let g:ycm_collect_identifiers_from_tags_files = 1
-"set tags+=./.tags
+let g:syntastic_javascript_checkers = ['eslint']
 
-"" try for the complete path
-"autocmd BufEnter * silent! :lcd%:p:h
+"" python
+let g:syntastic_python_checkers=['flake8']
+let g:syntastic_python_flake8_args='--ignore=E501,E225'
 
-"" neocompletechace
 
-"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
+  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
+\}
 
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
+let g:ctrlp_working_path_mode = 'r'
 
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+let g:python_host_prog = '/usr/local/bin/python'
+let g:python3_host_prog = '/usr/local/bin/python3'
 
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
+let g:deoplete#enable_at_startup = 1
+set rtp+=~/.vim/plugged/deoplete.nvim/
+set rtp+=~/.vim/plugged/deoplete-jedi/
+let g:deoplete#max_list = 10
+  let g:jedi#_auto_initialize=1
+  let g:jedi#force_py_version = 3
+  let g:jedi#auto_vim_configuration = 1
+  let g:jedi#popup_select_first = 0
 
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplete#close_popup() . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+"let g:syntastic_debug = 3
 
-" For cursor moving in insert mode(Not recommended)
-"inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
-"inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
-"inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
-"inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
-" Or set this.
-"let g:neocomplete#enable_cursor_hold_i = 1
-" Or set this.
-"let g:neocomplete#enable_insert_char_pre = 1
-
-" AutoComplPop like behavior.
-"let g:neocomplete#enable_auto_select = 1
-
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplete#enable_auto_select = 1
-"let g:neocomplete#disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w
-
-""" END NEOCOMPLETECACHE
-
-"" ctrl-p funky 
-nnoremap <Leader>fu :CtrlPFunky<Cr>
-" narrow the list down with a word under cursor
-nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
-
-""" turn of syntax checking for html
+"" get superTab to automatically close the windows
+let g:SuperTabClosePreviewOnPopupClose = 1
 let g:syntastic_disabled_filetypes=['html']
-let g:syntastic_html_checkers=['']
-
-""" PYTHON
-" Python-mode
-" Activate rope
-" Keys:
-" K             Show python docs
-" <Ctrl-Space>  Rope autocomplete
-" <Ctrl-c>g     Rope goto definition
-" <Ctrl-c>d     Rope show documentation
-" <Ctrl-c>f     Rope find occurrences
-" <Leader>b     Set, unset breakpoint (g:pymode_breakpoint enabled)
-" [[            Jump on previous class or function (normal, visual, operator modes)
-" ]]            Jump on next class or function (normal, visual, operator modes)
-" [M            Jump on previous class or method (normal, visual, operator modes)
-" ]M            Jump on next class or method (normal, visual, operator modes)
-let g:pymode_rope = 0 " use jedi-vim instead
-
-" Documentation
-let g:pymode_doc = 1
-let g:pymode_doc_key = 'K'
-
-"Linting
-let g:pymode_lint = 1
-"let g:pymode_lint_checker = "pyflakes,pep8"
-let g:pymode_lint_checkers = ["pep8","pyflakes"]
-
-" Auto check on save
-let g:pymode_lint_write = 1
-
-" Support virtualenv
-let g:pymode_virtualenv = 1
-
-" Enable breakpoints plugin
-let g:pymode_breakpoint = 1
-let g:pymode_breakpoint_bind = '<leader>b'
-
-" syntax highlighting
-let g:pymode_syntax = 1
-let g:pymode_syntax_all = 1
-let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-let g:pymode_syntax_space_errors = g:pymode_syntax_all
-
-" Don't autofold code
-let g:pymode_folding = 0
-
-"set cursorline
-"autocmd InsertEnter * highlight CursorLine guibg=#000050 guifg=fg
-"autocmd InsertLeave * highlight CursorLine guibg=#004000 guifg=fg
