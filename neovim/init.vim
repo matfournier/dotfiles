@@ -178,6 +178,10 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'mhartington/oceanic-next'
 Plug 'sekel/vim-vue-syntastic'
 
+""" JAVA 
+
+Plug 'artur-shaik/vim-javacomplete2'
+
 " END OF VUNDLE PLUGINS
 """"""""""""""""""""""""""""""""""""""""""""""""
 call plug#end()
@@ -348,3 +352,22 @@ let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 "" get superTab to automatically close the windows
 let g:SuperTabClosePreviewOnPopupClose = 1
 let g:syntastic_disabled_filetypes=['html']
+
+"" custom functions
+
+func! DeleteTrailingWS()
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z"
+endfunc
+
+noremap <leader>1 :call DeleteTrailingWS()<CR>
+
+""" JAVA
+""" endless options here
+""" https://github.com/artur-shaik/vim-javacomplete2 
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+
+"" syntastic turn off turn on
+""noremap <C-w>e :SyntasticCheck<CR>
+noremap <leader>5 :SyntasticToggleMode<CR>
