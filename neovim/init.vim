@@ -14,7 +14,7 @@ set showmode                    "Show current mode down the bottom
 set gcr=a:blinkon0              "Disable cursor blink
 set visualbell                  "No sounds
 set autoread                    "Reload files changed outside vim
-
+set synmaxcol=200               "" try for a markdown fix
 set laststatus=2                " for airline
 set ttimeoutlen=50              " for airline
 
@@ -129,7 +129,7 @@ Plug 'bling/vim-airline'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
 " markdown
-"
+
 " requires exuberant ctags
 Plug  'majutsushi/tagbar'
 
@@ -245,25 +245,10 @@ let g:syntastic_auto_loc_list=1
 "let g:syntastic_quiet_warnings=0
 let g:syntastic_html_validator_parser="html5"
 
-" ====== Make tabs be addressable via Apple+1 or 2 or 3, etc
-" Use numbers to pick the tab you want (like iTerm)
-map <silent> <D-1> :tabn 1<cr>
-map <silent> <D-2> :tabn 2<cr>
-map <silent> <D-3> :tabn 3<cr>
-map <silent> <D-4> :tabn 4<cr>
-map <silent> <D-5> :tabn 5<cr>
-map <silent> <D-6> :tabn 6<cr>
-map <silent> <D-7> :tabn 7<cr>
-map <silent> <D-8> :tabn 8<cr>
-map <silent> <D-9> :tabn 9<cr>
 
 " Support for github flavored markdown
 " via https://github.com/jtratner/vim-flavored-markdown
 " with .md extensions
-augroup markdown
-    au!
-    au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
-augroup END
 
 "" AIRLINE SETUP
 let g:airline#extensions#tabline#enabled = 1
@@ -293,28 +278,10 @@ nmap <leader>bq :bp <BAR> bd #<CR>
 nmap <leader>bl :ls<CR>
 """"""""""""""""""""""""""""" END BUFFERS """"""""""""""""
 
-"" set tagline buffer 
-nmap <leader>tt :TagbarToggle<CR>
+"TERMINAL MODE REMAP
 
-    " TagBar {
-        if isdirectory(expand("~/.vim/bundle/tagbar/"))
-            nnoremap <silent> <leader>tt :TagbarToggle<CR>
+tnoremap <Esc> <C-\><C-n>
 
-            " If using go please install the gotags program using the following
-            " go install github.com/jstemmer/gotags
-            " And make sure gotags is in your path
-            let g:tagbar_type_go = {
-                \ 'ctagstype' : 'go',
-                \ 'kinds'     : [  'p:package', 'i:imports:1', 'c:constants', 'v:variables',
-                    \ 't:types',  'n:interfaces', 'w:fields', 'e:embedded', 'm:methods',
-                    \ 'r:constructor', 'f:functions' ],
-                \ 'sro' : '.',
-                \ 'kind2scope' : { 't' : 'ctype', 'n' : 'ntype' },
-                \ 'scope2kind' : { 'ctype' : 't', 'ntype' : 'n' },
-                \ 'ctagsbin'  : 'gotags',
-                \ 'ctagsargs' : '-sort -silent'
-                \ }
-        endif
 " ctrl-p
 
 
@@ -371,3 +338,6 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
 "" syntastic turn off turn on
 ""noremap <C-w>e :SyntasticCheck<CR>
 noremap <leader>5 :SyntasticToggleMode<CR>
+
+"" trying to make it close the stupid preview window all the time
+autocmd CompleteDone * pclose
