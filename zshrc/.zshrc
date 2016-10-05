@@ -85,5 +85,8 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 export PATH="/Users/rockandcrush/anaconda/bin:$PATH"
+export PATH="$PATH:/Users/rockandcrush/z:/Users/rockandcrush/bin"
 alias vim=nvim
 alias v=nvim
+alias skim='/Applications/Skim.app/Contents/MacOS/Skim'
+alias rst='open -a rstudio'

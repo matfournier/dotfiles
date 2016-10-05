@@ -25,6 +25,7 @@ set cursorline                    " Highlight current line
 set colorcolumn=99
 
 
+let g:pymode_rope_lookup_project = 0
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
 " http://items.sjbach.com/319/configuring-vim-right
@@ -114,6 +115,8 @@ call plug#begin('~/.vim/plugged')
 "Bundle 'tpope/vim-fugitive'
  
 " file navigator gutter
+
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'ervandew/supertab'
 Plug 'posva/vim-vue'
 
@@ -158,14 +161,11 @@ Plug 'elzr/vim-json'
 Plug 'nathanaelkane/vim-indent-guides'
 
 "css tags
-
 Plug 'skammer/vim-css-color'
 
 " Add CSS3 syntax support to vim's built-in `syntax/css.vim`
 Plug 'hail2u/vim-css3-syntax'
 
-" go 
-Plug 'fatih/vim-go'
 
 " python
 """"""
@@ -173,7 +173,6 @@ Plug 'gertjanreynaert/cobalt2-vim-theme'
 Plug 'carlitux/deoplete-ternjs'
 Plug 'zchee/deoplete-jedi'
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'mhartington/oceanic-next'
 Plug 'sekel/vim-vue-syntastic'
@@ -341,3 +340,14 @@ noremap <leader>5 :SyntasticToggleMode<CR>
 
 "" trying to make it close the stupid preview window all the time
 autocmd CompleteDone * pclose
+
+"" make sure json looks proper
+autocmd BufNewFile,BufRead *.json set ft=javascript
+
+
+"" CTAGS and tagar and CTRLP 
+
+nnoremap <leader>. :CtrlPTag<cr>
+nnoremap <silent> <Leader>b :TagbarToggle<CR>
+set tags+=.tags/tags
+
